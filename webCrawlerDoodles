@@ -2,18 +2,20 @@ import os
 import json
 import urllib.request as req
 
-dirname = "google"
-if not os.path.exists(dirname):
-    os.makedirs(dirname)
-
-url = "https://www.google.com/doodles/json/2023/8?hl=zh-TW"
-response = req.urlopen(url)
-pics = json.load(response)
-
-for p in pics:
-    img = "https:" + p["high_res_url"]
-    print(p["title"])
-    print(img)
-    fp = dirname + "/" + img.split("/")[-1]
-    req.urlretrieve(img, fp)
-    print("-" * 30)
+for i in range(3):
+    month = i + 1
+    dirname = "google/{}".format(month)
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+    
+    url = "https://www.google.com/doodles/json/2023/{}?hl=zh-TW".format(month)
+    response = req.urlopen(url)
+    pics = json.load(response)
+    
+    for p in pics:
+        img = "https:" + p["high_res_url"]
+        print(p["title"])
+        print(img)
+        fp = dirname + "/" + img.split("/")[-1]
+        req.urlretrieve(img, fp)
+        print("-" * 30)

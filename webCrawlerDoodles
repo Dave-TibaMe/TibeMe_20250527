@@ -1,8 +1,9 @@
+以下是從圖片中提取的完整程式碼文字：
 import os
 import json
 import urllib.request as req
 
-for i in range(3):
+for i in range(1):
     month = i + 1
     dirname = "google/{}".format(month)
     if not os.path.exists(dirname):
@@ -11,6 +12,12 @@ for i in range(3):
     url = "https://www.google.com/doodles/json/2023/{}?hl=zh-TW".format(month)
     response = req.urlopen(url)
     pics = json.load(response)
+    
+    # save to json
+    fp = dirname + "/data.json"
+    f = open(fp, "w", encoding="utf-8")
+    json.dump(pics, f, ensure_ascii=False, indent=4)
+    f.close()
     
     for p in pics:
         img = "https:" + p["high_res_url"]

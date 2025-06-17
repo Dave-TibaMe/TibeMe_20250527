@@ -1,5 +1,6 @@
 from flask import Flask, request, abort
 
+
 from linebot.v3 import (
     WebhookHandler
 )
@@ -18,12 +19,18 @@ from linebot.v3.webhooks import (
     TextMessageContent
 )
 
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 app = Flask(__name__)
 
-#configuration = Configuration(access_token='YOUR_CHANNEL_ACCESS_TOKEN')
-#handler = WebhookHandler('YOUR_CHANNEL_SECRET')
-configuration = Configuration(access_token='6Dthjwqhy25X79MTB2Du6zO5qN49FKHW0Yyl4wlxMX8qFtj3qjcDaNUKSMlF9cmsM0xTatUHgNKQz9dX9UUaPPF4oDGTDwcKEOTdL5dfYruTxX41Qw43UxjdgsnJ7qK6deUtOsBrWhjCMaq+F1eVZwdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('a39aa2d4b1d43d1cb49134ef3771d0ab')
+configuration = Configuration(access_token=os.getenv("LINE_CHANNEL_ACCESS_TOKEN"))
+handler = WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
+#configuration = Configuration(access_token='6Dthjwqhy25X79MTB2Du6zO5qN49FKHW0Yyl4wlxMX8qFtj3qjcDaNUKSMlF9cmsM0xTatUHgNKQz9dX9UUaPPF4oDGTDwcKEOTdL5dfYruTxX41Qw43UxjdgsnJ7qK6deUtOsBrWhjCMaq+F1eVZwdB04t89/1O/w1cDnyilFU=')
+#handler = WebhookHandler('a39aa2d4b1d43d1cb49134ef3771d0ab')
 
 
 @app.route("/callback", methods=['POST'])
